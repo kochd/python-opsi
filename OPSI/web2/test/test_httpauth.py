@@ -42,7 +42,7 @@ class BasicAuthTestCase(unittest.TestCase):
         self.password = 'S3CuR1Ty'
 
     def testUsernamePassword(self):
-        response = base64.encodestring('%s:%s' % (
+        response = base64.b64encode('%s:%s' % (
                 self.username,
                 self.password))
 
@@ -50,7 +50,7 @@ class BasicAuthTestCase(unittest.TestCase):
         self.failUnless(creds.checkPassword(self.password))
 
     def testIncorrectPassword(self):
-        response = base64.encodestring('%s:%s' % (
+        response = base64.b64encode('%s:%s' % (
                 self.username,
                 'incorrectPassword'))
 
@@ -58,7 +58,7 @@ class BasicAuthTestCase(unittest.TestCase):
         self.failIf(creds.checkPassword(self.password))
 
     def testIncorrectPadding(self):
-        response = base64.encodestring('%s:%s' % (
+        response = base64.b64encode('%s:%s' % (
                 self.username,
                 self.password))
 
@@ -68,7 +68,7 @@ class BasicAuthTestCase(unittest.TestCase):
         self.failUnless(creds.checkPassword(self.password))
 
     def testInvalidCredentials(self):
-        response = base64.encodestring(self.username)
+        response = base64.b64encode(self.username)
 
         self.assertRaises(error.LoginFailed,
                           self.credentialFactory.decode,
@@ -551,7 +551,7 @@ class HTTPAuthResourceTest(test_server.BaseCase):
                                         self.portal,
                                         interfaces=(IHTTPUser,))
 
-        credentials = base64.encodestring('username:password')
+        credentials = base64.b64encode('username:password')
 
         d = self.assertResponse((root, 'http://localhost/',
                                  {'authorization': ('basic', credentials)}),
@@ -636,7 +636,7 @@ class HTTPAuthResourceTest(test_server.BaseCase):
                                         self.portal,
                                         interfaces=(IHTTPUser,))
 
-        credentials = base64.encodestring('bad:credentials')
+        credentials = base64.b64encode('bad:credentials')
 
         d = self.assertResponse(
             (root, 'http://localhost/',
@@ -660,7 +660,7 @@ class HTTPAuthResourceTest(test_server.BaseCase):
                                         self.portal,
                                         interfaces=(IHTTPUser,))
 
-        credentials = base64.encodestring('username:password')
+        credentials = base64.b64encode('username:password')
 
         d = self.assertResponse((root, 'http://localhost/',
                                  {'authorization': ('basic', credentials)}),
@@ -726,7 +726,7 @@ class HTTPAuthResourceTest(test_server.BaseCase):
             interfaces=(IHTTPUser,))
 
         def respondBasic(ign):
-            credentials = base64.encodestring('username:password')
+            credentials = base64.b64encode('username:password')
 
             d = self.assertResponse((root, 'http://localhost/',
                                      {'authorization':
@@ -765,7 +765,7 @@ class HTTPAuthResourceTest(test_server.BaseCase):
                                         self.portal,
                                         interfaces=(IHTTPUser,))
 
-        credentials = base64.encodestring('username:password')
+        credentials = base64.b64encode('username:password')
 
         d = self.assertResponse((root, 'http://localhost/foo/bar/baz/bax',
                                  {'authorization': ('basic', credentials)}),
@@ -791,7 +791,7 @@ class HTTPAuthResourceTest(test_server.BaseCase):
                                         self.portal,
                                         interfaces=(IHTTPUser,))
 
-        credentials = base64.encodestring('Not Good Credentials')
+        credentials = base64.b64encode('Not Good Credentials')
 
         d = self.assertResponse((root, 'http://localhost/',
                                  {'authorization': ('basic', credentials)}),
@@ -848,7 +848,7 @@ class HTTPAuthResourceTest(test_server.BaseCase):
                                         interfaces = (IHTTPUser,))
 
         def _tryAuthenticate(result):
-            credentials = base64.encodestring('username:password')
+            credentials = base64.b64encode('username:password')
 
             d2 = self.assertResponse(
                 (root, 'http://localhost/',
@@ -926,7 +926,7 @@ class HTTPAuthResourceTest(test_server.BaseCase):
             self.assertEquals(response.headers.getHeader('WWW-Authenticate'),
                               [('basic', {'realm': "test realm"})])
 
-            credentials = base64.encodestring('username:password')
+            credentials = base64.b64encode('username:password')
 
             request.headers.setHeader('authorization',
                                       ['basic', credentials])

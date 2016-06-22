@@ -538,7 +538,7 @@ class MessageBusWebsocketClient(MessageBusClient):
 		headers = 'GET %s HTTP/1.1\r\n' % self._baseUrl
 		if self.__username and self.__password:
 			auth = (self.__username + u':' + self.__password).encode('latin-1')
-			headers += 'Authorization: Basic ' + base64.encodestring(auth).strip()
+			headers += 'Authorization: Basic ' + base64.b64encode(auth).strip()
 		headers += 'Upgrade: websocket\r\n'
 		headers += 'Connection: Upgrade\r\n'
 		headers += 'Host: %s:%d\r\n' % (self._host, self._port)
