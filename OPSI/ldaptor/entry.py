@@ -14,7 +14,7 @@ def sshaDigest(passphrase, salt=None):
     s = sha.sha()
     s.update(passphrase)
     s.update(salt)
-    encoded = base64.encodestring(s.digest()+salt).rstrip()
+    encoded = base64.b64encode(s.digest()+salt).rstrip()
     crypt = '{SSHA}' + encoded
     return crypt
 

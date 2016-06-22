@@ -1518,7 +1518,7 @@ generator_entity_headers = {
     'Content-Language':(generateList, singleHeader),
     'Content-Length':(str, singleHeader),
     'Content-Location':(str, singleHeader),
-    'Content-MD5':(base64.encodestring, lambda x: x.strip("\n"), singleHeader),
+    'Content-MD5':(base64.b64encode, lambda x: x.strip("\n"), singleHeader),
     'Content-Range':(generateContentRange, singleHeader),
     'Content-Type':(generateContentType, singleHeader),
     'Expires':(generateDateTime, singleHeader),

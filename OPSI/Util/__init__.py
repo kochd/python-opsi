@@ -159,7 +159,7 @@ def librsyncSignature(filename, base64Encoded=True):
 				sig = sf.read()
 
 				if base64Encoded:
-					sig = base64.encodestring(sig)
+					sig = base64.b64encode(sig)
 
 				return sig
 	except Exception as e:

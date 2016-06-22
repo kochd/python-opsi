@@ -15,7 +15,7 @@ TODO implement rest of syntax from RFC2849
 import base64
 
 def base64_encode(s):
-    return ''.join(base64.encodestring(s).split('\n'))+'\n'
+    return ''.join(base64.b64encode(s).split('\n'))+'\n'
 
 def attributeAsLDIF_base64(attribute, value):
     return "%s:: %s" % (attribute, base64_encode(value))
